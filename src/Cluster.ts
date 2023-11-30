@@ -412,6 +412,10 @@ export default class Cluster<JobData = any, ReturnData = any> extends EventEmitt
         }
     }
 
+    public clearQueue() {
+        this.jobQueue.list = []
+    }
+
     public async queue(
         data: JobData,
         taskFunction?: TaskFunction<JobData, ReturnData>,
