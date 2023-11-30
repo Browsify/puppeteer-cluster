@@ -18,7 +18,6 @@ export default class Job<JobData, ReturnData> {
 
     private lastError: Error | null = null;
     public tries: number = 0;
-    public url: string | null;
     
     public constructor(
         data?: JobData,
@@ -28,7 +27,6 @@ export default class Job<JobData, ReturnData> {
         this.data = data;
         this.taskFunction = taskFunction;
         this.executeCallbacks = executeCallbacks;
-        this.url = (data && typeof data == "object" && "url" in data ? data.url as string : typeof data == "string" ? data : null) ?? null
     }
 
     public getUrl(): string | undefined {
