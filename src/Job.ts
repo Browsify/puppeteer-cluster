@@ -9,6 +9,7 @@ export interface ExecuteCallbacks {
     reject: ExecuteReject;
 }
 
+
 export default class Job<JobData, ReturnData> {
 
     public data?: JobData;
@@ -17,17 +18,17 @@ export default class Job<JobData, ReturnData> {
 
     private lastError: Error | null = null;
     public tries: number = 0;
-    public url: string;
+    public url: string | null;
     
     public constructor(
-        data?: any,
+        data?: JobData,
         taskFunction?: TaskFunction<JobData, ReturnData>,
         executeCallbacks?: ExecuteCallbacks,
     ) {
         this.data = data;
         this.taskFunction = taskFunction;
         this.executeCallbacks = executeCallbacks;
-        this.url = data.url;
+        this.url = (data && typeof data == "object" && "url" in data ? data.url as string : typeof data == "string" ? data : null) ?? null
     }
 
     public getUrl(): string | undefined {
